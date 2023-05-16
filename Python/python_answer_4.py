@@ -12,7 +12,10 @@ def download_data(url):
 
 def convert_to_df(data):
     # coverting to dataframe
-    return pd.DataFrame(data)
+    df = pd.DataFrame(data)
+    df.drop([':@computed_region_cbhk_fwbd',':@computed_region_nnqa_25f4'],axis=1,inplace=True)
+    return df
+    
 
 
 def save_as_csv(df, output_file):
@@ -25,7 +28,7 @@ def save_as_csv(df, output_file):
 url = "https://data.nasa.gov/resource/y77d-th95.json"  # URL
 
 data = download_data(url)  # download data
-
+columns = ['name',]
 df = convert_to_df(data)  # conveting to dataframe
 
 output_file = "nasa_data.csv"
