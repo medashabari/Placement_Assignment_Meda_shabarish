@@ -5,19 +5,19 @@ import pandas as pd
 def download_data(url):
     # sending a get request to the url and retrieving
     response = requests.get(url)
-    data = response.json()
+    data = response.json()['pokemon']
     return data 
 
 def convert_to_df(data):
     # accessing the pokemen data inside the pokemen key
-    relvant_data = data['pokemon']
-    return pd.json_normalize(relvant_data)
+    data=pd.json_normalize(data)
+    return data
 
 def save_as_excel(df,output_file):
      # creating the dataset folder if not exists
     os.makedirs("dataset/",exist_ok=True)
     # conveting to excel file and saving it in dataset folder
-    df.to_excel("dataset"+output_file,index=False)
+    df.to_excel("dataset/"+output_file,index=False)
 
 url = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
 
